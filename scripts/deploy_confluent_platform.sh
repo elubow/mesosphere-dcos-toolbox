@@ -7,7 +7,11 @@
 #
 # Usage:
 #
-#  ./deploy-cp install | uninstall
+#  ./deploy_confluent_platform.sh install | uninstall | clean | control_center
+#
+# Version:
+#   0.1 - 17-Jan-18 - [Richard Shaw] - Original version
+#   0.2 - 24-Jan-18 - [Eric Lubow] - Modified to use multiple Kafka's on a single ZK
 
 # Exit on error. Append "|| true" if you expect an error.
 #set -o errexit
@@ -15,7 +19,7 @@
 set -o errtrace
 # Do not allow use of undefined vars. Use ${VAR:-} to use an undefined VAR
 set -o nounset
-# Catch the error in case mysqldump fails (but gzip succeeds) in `mysqldump |gzip`
+# Catch the error
 set -o pipefail
 # Turn on traces, useful while debugging but commented out by default
 set -o xtrace
@@ -24,7 +28,6 @@ packages=("beta-confluent-kafka-zookeeper")
 platform_packages=( "beta-confluent-kafka" "confluent-rest-proxy" "confluent-connect" "confluent-schema-registry" )
 ssh_user="core" # Change accordingly
 APP_COUNT=2
-
 
 function cp_uninstall () {
     package=confluent-kafka
