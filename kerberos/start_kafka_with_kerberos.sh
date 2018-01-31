@@ -2,15 +2,15 @@
 
 # This file:
 #
-#  - Deploys Confluent Kafka with a dedicated Zookeeper and a Kerberos KDC requirement
+#  - Deploys Confluent Kafka with a dedicated Zookeeper and a Kerberos KDC server
 #
 #
 # Usage:
 #
-#  ./start_kafka_with_kerberos.sh install | uninstall | clean | setup
+#  ./start_kafka_with_kerberos.sh install | uninstall | clean
 #
 # Version:
-#   0.1 - 29-Jan-18 - [Eric Lubow] - Modified to use multiple Kafka's on a single ZK
+#   0.1 - 29-Jan-18 - [Eric Lubow] - Dedicated ZK, Kafka authenticated against Kerberos
 
 # Exit on error. Append "|| true" if you expect an error.
 #set -o errexit
@@ -24,30 +24,38 @@ set -o pipefail
 #set -o xtrace
 
 function clean () {
-    echo "Cleaning up the options.json files..."
-    rm -f *.json
+	echo "Cleaning up the local files..."
+	rm -rf dcos-commons kafka-principals.txt *.json
+	echo "done."
 }
+
 
 function setup () {
 	echo ""
 	echo "NOTE: You should already be auth'd into a cluster."
 	echo ""
-	echo "Step 1. create the kafka-principals.txt file and use the dcos-commons repo to generate the principals"
-	echo "  a. Clone the dcos-commons git repo: git clone git@github.com:mesosphere/dcos-commons.git"
-	echo "  b. create the kafka-principals.txt file:"
-	echo 'echo kafka/kafka-0-broker.kafka.autoip.dcos.thisdcos.directory@LOCAL
-kafka/kafka-1-broker.kafka.autoip.dcos.thisdcos.directory@LOCAL
-kafka/kafka-2-broker.kafka.autoip.dcos.thisdcos.directory@LOCAL
-client@LOCAL > kafka-principals.txt' 
-	echo ""
-	echo "  c. ensure you've installed all the necessary Python 3 eggs: "
-	echo "     cd dcos-commons && pip3 -r install test_requirements.txt"
-	echo "  d. create the kerberos server (should be at the root of dcos-commons):"
-	echo "     PYTHONPATH=testing ./tools/kdc/kdc.py deploy kafka-principals.txt"
-	echo ""
+	echo "Shallow cloning the dcos-commons git repo"
+	git clone --depth 1 git@github.com:mesosphere/dcos-commons.git
+	echo "Installing Python eggs"
+	cd dcos-commons && pip3 install -r test_requirements.txt && cd ..
+
+	echo "Example:"
+	echo 'kafka/kafka-0-broker.beta-confluent-kafka.autoip.dcos.thisdcos.directory@LOCAL
+kafka/kafka-1-broker.beta-confluent-kafka.autoip.dcos.thisdcos.directory@LOCAL
+kafka/kafka-2-broker.beta-confluent-kafka.autoip.dcos.thisdcos.directory@LOCAL
+client@LOCAL' 
+	echo -n "Enter the kafka principals (CTRL-d to finish): "
+	kp_file=kafka-principals.txt
+	cat > "$kp_file"
+
+	echo "Creating the kerberos server..."
+	cd dcos-commons && PYTHONPATH=testing ./tools/kdc/kdc.py deploy ../kafka-principals.txt
+	cd ../
+	echo "Setup complete."
 }
 
 function install () {
+	setup
 	echo -n "Testing for Kerberos KDC..."
 	if [ "$(dcos marathon app list | grep -c -v kdc)" -eq 1 ]
 	then
@@ -110,6 +118,8 @@ function uninstall () {
     	dcos package uninstall beta-confluent-kafka --yes
 	echo "Removing Zookeeper..."
     	dcos package uninstall beta-confluent-kafka-zookeeper --yes
+	echo "Cleaning up local files..."
+	rm -rf dcos-commons kafka-principals.txt *.json
 	echo "done."
 }
 
@@ -153,7 +163,6 @@ EOF
 
 case "$@" in
   install)          install ;;
-  setup)            setup ;;
   uninstall)        uninstall  ;;
   clean)	    clean ;;
   *) exit 1 ;;
