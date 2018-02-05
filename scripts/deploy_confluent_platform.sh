@@ -25,7 +25,7 @@ set -o pipefail
 set -o xtrace
 
 packages=("beta-confluent-kafka-zookeeper")
-platform_packages=( "beta-confluent-kafka" "confluent-rest-proxy" "confluent-connect" "confluent-schema-registry" )
+platform_packages=( "beta-confluent-kafka" "confluent-rest-proxy" "confluent-connect" "confluent-schema-registry" "confluent-replicator" )
 ssh_user="core" # Change accordingly
 APP_COUNT=2
 
