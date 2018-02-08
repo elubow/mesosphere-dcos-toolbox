@@ -13,5 +13,8 @@ Launches a Kerberos KDC server, dedicated ZK without Kerberos and Confluent kafk
 ## start_kafka_with_ad_kerberos.sh
 Launches a Kerberos KDC server, dedicated ZK without Kerberos and Confluent kafka that authenticates against a Microsoft Active Directory server.
 
+## start_zk_kafka_with_ad_kerberos.sh
+Launches a dedicated Zookkeeper that authenticates against a Microsoft Active Directory Kerberos. Then launches Confluent kafka that authenticates against a Microsoft Active Directory Kerberos.
+
 ## template.sh
 Template script to use as a starter for new scripts.
