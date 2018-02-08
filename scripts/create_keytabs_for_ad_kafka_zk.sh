@@ -18,7 +18,7 @@ then
 fi
 
 kvno=1
-for instance_no in 1 2 3
+for instance_no in 0 1 2
 do
    for etype in ${ENCRYPTION_TYPES[@]}
    do
@@ -42,7 +42,7 @@ then
 fi
 
 kvno=1
-for instance_no in 1 2 3
+for instance_no in 0 1 2
 do
    for etype in ${ENCRYPTION_TYPES[@]}
    do
