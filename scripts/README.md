@@ -10,5 +10,8 @@ Launches a single zookeeper with multiple Confluent Kafka platforms. The Conflue
 ## start_kafka_with_kerberos.sh
 Launches a Kerberos KDC server, dedicated ZK without Kerberos and Confluent kafka that authenticates against the Kerberos KDC.
 
+## start_kafka_with_ad_kerberos.sh
+Launches a Kerberos KDC server, dedicated ZK without Kerberos and Confluent kafka that authenticates against a Microsoft Active Directory server.
+
 ## template.sh
 Template script to use as a starter for new scripts.
