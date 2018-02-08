@@ -22,7 +22,7 @@ for instance_no in 0 1 2
 do
    for etype in ${ENCRYPTION_TYPES[@]}
    do
-        printf "%b" "addent -password -p zookeeper/zookeeper-${instance_no}-server-confluent-kafka-zookeeper.autoip.dcos.thisdcos.directory -k $kvno -e ${etype}\n${PASSWORD}\nwrite_kt ${ZK_KEYTAB}" |ktutil
+        printf "%b" "addent -password -p zookeeper/zookeeper-${instance_no}-server.beta-confluent-kafka-zookeeper.autoip.dcos.thisdcos.directory -k $kvno -e ${etype}\n${PASSWORD}\nwrite_kt ${ZK_KEYTAB}" |ktutil
     ((kvno++))
    done
 done
