@@ -163,6 +163,7 @@ tee beta-confluent-kafka.json << EOF
 	    "realm": "XXX REALM",
             "primary": "kafka",
 	    "enabled": true,
+	    "enabled_for_zookeeper": true,
             "kdc": {
                 "hostname": "${1}",
                 "port": ${2}
