@@ -13,13 +13,13 @@
 #   0.1 - 1-Mar-18 - [Eric Lubow] - Initial version
 
 # Exit on error. Append "|| true" if you expect an error.
-#set -o errexit
+set -o errexit
 # Exit on error inside any functions or subshells.
 #set -o errtrace
 # Do not allow use of undefined vars. Use ${VAR:-} to use an undefined VAR
-#set -o nounset
+set -o nounset
 # Catch the error
-#set -o pipefail
+set -o pipefail
 # Turn on traces, useful while debugging but commented out by default
 #set -o xtrace
 
