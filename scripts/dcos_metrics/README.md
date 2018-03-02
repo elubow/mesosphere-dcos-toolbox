@@ -3,8 +3,8 @@ This is a list of scripts that have been put together in support of work for dco
 
 ## install_dcos_metrics_prom_on_master.sh
 Install the dcos-metrics prometheus plugin on the master and start systemd to ensure it's up.
-Can also be run from the command line: `curl --retry 3 -fsSL https://raw.githubusercontent.com/elubow/mesosphere-dcos-toolbox/master/scripts/dcos_metrics/install_dcos_metrics_prom_on_master.sh`
+Can also be run from the command line: `curl --retry 3 -fsSL https://raw.githubusercontent.com/elubow/mesosphere-dcos-toolbox/master/scripts/dcos_metrics/install_dcos_metrics_prom_on_master.sh | bash`
 
 ## install_dcos_metrics_prom_on_agent.sh
 Install the dcos-metrics prometheus plugin on agent and start systemd to ensure it's up.
-Can also be run from the command line: `curl --retry 3 -fsSL https://raw.githubusercontent.com/elubow/mesosphere-dcos-toolbox/master/scripts/dcos_metrics/install_dcos_metrics_prom_on_agent.sh`
+Can also be run from the command line: `curl --retry 3 -fsSL https://raw.githubusercontent.com/elubow/mesosphere-dcos-toolbox/master/scripts/dcos_metrics/install_dcos_metrics_prom_on_agent.sh | bash`
