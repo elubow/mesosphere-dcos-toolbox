@@ -8,6 +8,8 @@
 # Usage:
 #
 #  ./install_dcos_metrics_prom_on_master.sh
+#  OR
+#  curl --retry 3 -fsSL https://raw.githubusercontent.com/elubow/mesosphere-dcos-toolbox/master/scripts/dcos_metrics/install_dcos_metrics_prom_on_agent.sh
 #
 # Version:
 #   0.1 - 1-Mar-18 - [Eric Lubow] - Initial version
