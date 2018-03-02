@@ -32,7 +32,7 @@ PLUGIN_URL="https://github.com/dcos/dcos-metrics/releases/download/${PLUGIN_VERS
 echo "downloading plugin"
 # STEP sudo curl -L https://github.com/dcos/dcos-metrics/releases/download/1.10.4/dcos-metrics-prometheus-plugin_1.10.4 -o /opt/mesosphere/bin/dcos-metrics-prometheus-plugin
 # STEP chmod 0755 /opt/mesosphere/bin/dcos-metrics-prometheus-plugin
-sudo curl -L ${PLUGIN_URL} -o /opt/mesosphere/bin/dcos-metrics-prometheus-plugin
+sudo curl --retry 3 -fsSL ${PLUGIN_URL} -o /opt/mesosphere/bin/dcos-metrics-prometheus-plugin
 chmod 0755 /opt/mesosphere/bin/dcos-metrics-prometheus-plugin
 
 echo "writing environment files"
