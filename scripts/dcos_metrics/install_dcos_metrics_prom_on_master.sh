@@ -36,7 +36,7 @@ chmod 0755 /opt/mesosphere/bin/dcos-metrics-prometheus-plugin
 echo "writing environment files"
 # STEP sudo echo "PROMETHEUS_PORT=8088" > /opt/mesosphere/etc/dcos-metrics-prometheus.env
 tee /opt/mesosphere/etc/dcos-metrics-prometheus.env <<EOF
-PROMETHEUS_PORT=8088
+PROMETHEUS_PORT=9273
 EOF
 
 # STEP sudo echo "DCOS_METRICS_CONFIG_PATH=/opt/mesosphere/etc" > /opt/mesosphere/etc/dcos-metrics.env
